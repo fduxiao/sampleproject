@@ -6,7 +6,8 @@ https://github.com/pypa/sampleproject
 """
 
 # Always prefer setuptools over distutils
-from setuptools import setup, find_packages
+from setuptools import setup
+from Cython.Build import cythonize
 from os import path
 # io.open is needed for projects that support Python 2.7
 # It ensures open() defaults to text mode with universal newlines,
@@ -128,7 +129,8 @@ setup(
     #
     #   py_modules=["my_module"],
     #
-    packages=find_packages(exclude=['contrib', 'docs', 'tests']),  # Required
+    # packages=find_packages(exclude=['contrib', 'docs', 'tests']),  # Required
+    ext_modules = cythonize("sample/*.py"),
 
     # This field lists other packages that your project depends on to run.
     # Any package you put here will be installed by pip when your project is
@@ -156,6 +158,7 @@ setup(
     #
     # If using Python 2.6 or earlier, then these have to be included in
     # MANIFEST.in as well.
+    include_package_data=True,
     package_data={  # Optional
         'sample': ['package_data.dat'],
     },
